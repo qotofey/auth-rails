@@ -5,13 +5,18 @@
 #   gem "sqlite3"
 #
 default: &default
-  adapter: sqlite3
+  adapter: mysql2
+  encoding: utf8mb4
+  port: 3306
   max_connections: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
 development:
   <<: *default
-  database: storage/development.sqlite3
+  host: <%= Rails.application.credentials.dev.db_host %>
+  database: <%= Rails.application.credentials.dev.db_name %>
+  username: <%= Rails.application.credentials.dev.db_username %>
+  password: <%= Rails.application.credentials.dev.db_password %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
