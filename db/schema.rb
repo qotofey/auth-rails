@@ -14,7 +14,7 @@ ActiveRecord::Schema[8.2].define(version: 2026_01_12_184432) do
   create_table "user_credentials", charset: "utf8mb3", force: :cascade do |t|
     t.datetime "confirmed_at"
     t.datetime "created_at", null: false
-    t.string "kind"
+    t.string "kind", limit: 16
     t.string "login"
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
@@ -24,8 +24,8 @@ ActiveRecord::Schema[8.2].define(version: 2026_01_12_184432) do
 
   create_table "user_passwords", charset: "utf8mb3", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.string "digest"
     t.datetime "disabled_at"
+    t.string "password_digest", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_user_passwords_on_user_id"
@@ -34,7 +34,7 @@ ActiveRecord::Schema[8.2].define(version: 2026_01_12_184432) do
   create_table "user_sessions", charset: "utf8mb3", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "disabled_at"
-    t.string "refresh_token"
+    t.string "refresh_token", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_credential_id", null: false
     t.index ["user_credential_id"], name: "index_user_sessions_on_user_credential_id"

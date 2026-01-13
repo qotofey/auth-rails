@@ -1,0 +1,7 @@
+ru:
+  activerecord:
+    attributes:
+      user:
+        genders:
+          female: "жен"
+          male: "муж"

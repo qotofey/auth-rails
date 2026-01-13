@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserSession < ApplicationRecord
-  belongs_to :user_credential_id
+  belongs_to :user_credential
 end
