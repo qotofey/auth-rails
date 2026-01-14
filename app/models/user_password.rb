@@ -5,5 +5,5 @@ class UserPassword < ApplicationRecord
 
   belongs_to :user
 
-  validates :password_digest, presence: true
+  validates :password, presence: true
 end

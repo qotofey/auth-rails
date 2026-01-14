@@ -13,6 +13,9 @@ class User < ApplicationRecord
     male: "male"
   }
 
+  accepts_nested_attributes_for :credentials
+  accepts_nested_attributes_for :password
+
   validates :name, length: { maximum: 64 }# , plain_name: true
   validates :middle_name, length: { maximum: 64 }# , plain_name: true
   validates :last_name, length: { maximum: 64 }# , plain_name: true

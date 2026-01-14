@@ -14,7 +14,7 @@ ActiveRecord::Schema[8.2].define(version: 2026_01_12_184432) do
   create_table "user_credentials", charset: "utf8mb3", force: :cascade do |t|
     t.datetime "confirmed_at"
     t.datetime "created_at", null: false
-    t.string "kind", limit: 16
+    t.string "kind", limit: 16, default: "username"
     t.string "login"
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
@@ -45,10 +45,10 @@ ActiveRecord::Schema[8.2].define(version: 2026_01_12_184432) do
     t.datetime "blocked_at"
     t.datetime "created_at", null: false
     t.datetime "deleted_at"
-    t.string "gender"
-    t.string "last_name"
-    t.string "middle_name"
-    t.string "name"
+    t.string "gender", limit: 16
+    t.string "last_name", limit: 64
+    t.string "middle_name", limit: 64
+    t.string "name", limit: 64
     t.datetime "updated_at", null: false
   end
 
