@@ -1,7 +1,7 @@
 class CreateUserCredentials < ActiveRecord::Migration[8.2]
   def change
     create_table :user_credentials do |t|
-      t.string :kind, limit: 16
+      t.string :kind, limit: 16, default: 'username'
       t.string :login, index: { unique: true }
       t.datetime :confirmed_at
       t.references :user, null: false, foreign_key: { on_delete: :cascade }

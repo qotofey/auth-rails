@@ -36,6 +36,7 @@ gem "image_processing", "~> 1.2"
 # gem "rack-cors"
 
 gem "jsonapi-serializer", "~> 2.2"
+gem "jsonapi_parameters", "~> 2.3"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

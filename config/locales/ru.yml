@@ -3,5 +3,5 @@ ru:
     attributes:
       user:
         genders:
-          female: "жен"
-          male: "муж"
+          female: "жен."
+          male: "муж."
