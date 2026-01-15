@@ -5,5 +5,5 @@ class UserPassword < ApplicationRecord
 
   belongs_to :user
 
-  validates :password, presence: true
+  validates :password, length: { in: 10..128 }
 end

@@ -14,4 +14,6 @@ class UserCredential < ApplicationRecord
 
   validates :kind, presence: true
   validates :login, presence: true, uniqueness: { case_sensitive: false }
+
+  alias_attribute :namename, :login
 end

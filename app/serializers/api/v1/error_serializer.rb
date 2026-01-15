@@ -18,7 +18,7 @@ module Api
       def serialized_errors
       end
 
-      def build_errors_item
+      def build_errors
         {
           user: [ "must exist" ],
           kind: [ "can't be blank" ],
