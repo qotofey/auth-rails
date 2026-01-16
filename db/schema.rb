@@ -34,9 +34,10 @@ ActiveRecord::Schema[8.2].define(version: 2026_01_12_184432) do
   create_table "user_sessions", charset: "utf8mb3", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "disabled_at"
-    t.string "refresh_token", null: false
+    t.string "token", limit: 64, null: false
     t.datetime "updated_at", null: false
     t.bigint "user_credential_id", null: false
+    t.index ["token"], name: "index_user_sessions_on_token", unique: true
     t.index ["user_credential_id"], name: "index_user_sessions_on_user_credential_id"
   end
 

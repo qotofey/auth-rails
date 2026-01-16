@@ -17,12 +17,14 @@ module Api
 
       def create
         # binding.irb
+        # form = RegistrationFrom.new({})
+        # type_params
         user = User.new do |u|
           u.credentials_attributes = [ credential_params ]
           u.password_attributes = secret_params
         end
         if user.save
-          render json: UserSerializer.new(user).serializable_hash, status: :created# , location: @user
+          render json: UserSerializer.new(user).serializable_hash, status: :created# , location: api_v1_user_url(@user)
         else
           render json: user.errors, status: :unprocessable_content
         end
@@ -30,7 +32,7 @@ module Api
 
       def update
         if @user.update(user_params)
-          render json: @user
+          render json: UserSerializer.new(@user).serializable_hash
         else
           render json: @user.errors, status: :unprocessable_content
         end
@@ -47,15 +49,41 @@ module Api
       end
 
       def user_params
-        params.from_jsonapi(:camel).require(:user).permit(%i[name middle_name last_name birth_date gender])
+        params.from_jsonapi(:camel).require(:user).permit(%i[name middle_name last_name birthday gender])
       end
 
+      # def credential_params
+      #   params.from_jsonapi(:camel).require(:user).permit(%i[login])
+      # end
+
       def credential_params
-        params.from_jsonapi(:camel).require(:user).permit(%i[kind login])
+        params.expect(data: [ attributes: [ :login, :kind ] ])
       end
 
       def secret_params
         params.from_jsonapi(:camel).require(:user).permit(%i[password])
+      end
+
+      def type_params
+        params.expect(data: :type)
+      end
+
+      def registration_params
+        params
+          .deep_transform_keys!(&:underscore)
+          .tap do
+            attrs = it["data"]["attributes"]
+            if attrs["username"]
+              attrs.merge!(
+                "kind" => "username",
+                "login" => attrs["username"]
+              )
+              attrs.delete("username")
+            end
+          end
+          .expect(
+            data: [ attributes: %i[username password name middle_name last_name birthday gender] ]
+          )
       end
     end
   end
