@@ -39,6 +39,10 @@ gem "jsonapi-serializer", "~> 2.2"
 gem "jsonapi_parameters", "~> 2.3"
 gem "jwt", "~> 3.1"
 
+group :development do
+  gem "capistrano", "~> 3.20", require: false
+end
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
