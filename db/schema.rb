@@ -11,7 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[8.2].define(version: 2026_01_12_184432) do
-  create_table "user_credentials", charset: "utf8mb3", force: :cascade do |t|
+  create_table "user_credentials", force: :cascade do |t|
     t.datetime "confirmed_at"
     t.datetime "created_at", null: false
     t.string "kind", limit: 16, default: "username"
@@ -22,7 +22,7 @@ ActiveRecord::Schema[8.2].define(version: 2026_01_12_184432) do
     t.index ["user_id"], name: "index_user_credentials_on_user_id"
   end
 
-  create_table "user_passwords", charset: "utf8mb3", force: :cascade do |t|
+  create_table "user_passwords", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "disabled_at"
     t.string "password_digest", null: false
@@ -31,7 +31,7 @@ ActiveRecord::Schema[8.2].define(version: 2026_01_12_184432) do
     t.index ["user_id"], name: "index_user_passwords_on_user_id"
   end
 
-  create_table "user_sessions", charset: "utf8mb3", force: :cascade do |t|
+  create_table "user_sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "disabled_at"
     t.string "token", limit: 64, null: false
@@ -41,7 +41,7 @@ ActiveRecord::Schema[8.2].define(version: 2026_01_12_184432) do
     t.index ["user_credential_id"], name: "index_user_sessions_on_user_credential_id"
   end
 
-  create_table "users", charset: "utf8mb3", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.date "birth_date"
     t.datetime "blocked_at"
     t.datetime "created_at", null: false

@@ -1,12 +1,17 @@
 # frozen_string_literal: true
 
+require "paranoia"
+
 class User < ApplicationRecord
+  acts_as_paranoid
+
   has_many :credentials, class_name: "UserCredential", dependent: :destroy
   has_one :password, class_name: "UserPassword", dependent: :destroy
 
-  normalizes :name, with: ->(name) { name.strip.delete("\s").titleize.to_s }
-  normalizes :middle_name, with: ->(middle_name) { middle_name.strip.delete("\s").titleize.to_s }
-  normalizes :last_name, with: ->(last_name) { last_name.strip.delete("\s").titleize.to_s }
+  # Нормализация выполняется в UpdateUserForm
+  # normalizes :name, with: ->(name) { name.to_s.strip.titleize }
+  # normalizes :middle_name, with: ->(middle_name) { middle_name.to_s.strip.titleize }
+  # normalizes :last_name, with: ->(last_name) { last_name.to_s.strip.titleize }
 
   enum :gender, {
     female: "female",
