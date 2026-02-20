@@ -45,5 +45,10 @@ module Auth
     config.middleware.use ActionDispatch::Session::CookieStore
 
     config.autoload_paths << Rails.root.join("app", "forms")
+
+    # Set default locale to Russian
+    config.i18n.default_locale = :ru
+    config.i18n.available_locales = [ :ru, :en ]
+    config.i18n.fallbacks = true
   end
 end

@@ -4,11 +4,11 @@ require "action_controller"
 
 module Api
   module V1
-    class AuthenticationForm
+    class UpdateUserRequestForm
       include ActiveModel::Model
       include ActiveModel::Validations
 
-      attr_accessor :data, :type, :attributes, :username, :password
+      attr_accessor :data, :type, :attributes
 
       # Валидации для data
       validate :data_presence
@@ -20,14 +20,14 @@ module Api
       # Валидации для attributes (только если data присутствует)
       validate :validate_attributes, if: :data_present?
 
-      # Валидации для username/password (только если data, type, attributes присутствуют и type корректен)
-      validate :validate_username_and_password, if: :data_type_attributes_and_type_valid?
+      # Валидации для полей внутри attributes (только если data, type, attributes присутствуют и type корректен)
+      validate :validate_attributes_fields, if: :data_type_attributes_valid?
 
       def data_present?
         !data.nil?
       end
 
-      def data_type_attributes_and_type_valid?
+      def data_type_attributes_valid?
         data_present? && !type.nil? && !attributes.nil? && errors[:type].empty?
       end
 
@@ -35,8 +35,16 @@ module Api
         @data = params[:data] || params["data"]
         @type = params[:type] || params["type"] || @data&.[]("type") || @data&.[](:type)
         @attributes = params[:attributes] || params["attributes"] || @data&.[]("attributes") || @data&.[](:attributes)
-        @username = (@attributes&.[]("username") || @attributes&.[](:username))&.to_s&.strip&.downcase
-        @password = params[:password] || params["password"] || @attributes&.[]("password") || @attributes&.[](:password)
+      end
+
+      def extracted_attributes
+        {
+          name: attributes&.[]("name") || attributes&.[](:name),
+          middle_name: attributes&.[]("middleName") || attributes&.[](:middle_name),
+          last_name: attributes&.[]("lastName") || attributes&.[](:last_name),
+          gender: attributes&.[]("gender") || attributes&.[](:gender),
+          birth_date: attributes&.[]("birthDate") || attributes&.[](:birth_date)
+        }
       end
 
       private
@@ -72,34 +80,19 @@ module Api
         end
       end
 
-      def validate_username_and_password
-        # Username presence
-        if username.nil?
-          errors.add(:username, :blank, message: "Логин не может быть пустым")
-        else
-          # Username length
-          if username.length < 1
-            errors.add(:username, :too_short, message: "недостаточной длины (не может быть меньше 1 символов)")
-          elsif username.length > 64
-            errors.add(:username, :too_long, message: "слишком большой длины (не может быть больше чем 64 символов)")
-          end
-
-          # Username format
-          unless username.match?(/\A[a-zA-Z0-9]+\z/)
-            errors.add(:username, :invalid_format, message: "может содержать только цифры и буквы английского языка")
-          end
-        end
-
-        # Password presence
-        if password.nil?
-          errors.add(:password, :blank, message: "Пароль не может быть пустым")
-        else
-          # Password length
-          if password.length < 10
-            errors.add(:password, :too_short, message: "недостаточной длины (не может быть меньше 10 символов)")
-          elsif password.length > 64
-            errors.add(:password, :too_long, message: "слишком большой длины (не может быть больше чем 64 символов)")
-          end
+      def validate_attributes_fields
+        # Проверяем, что хотя бы одно поле присутствует
+        if attributes.blank? || (
+          attributes[:name].blank? && attributes["name"].blank? &&
+          attributes[:middle_name].blank? && attributes["middle_name"].blank? &&
+          attributes[:middleName].blank? && attributes["middleName"].blank? &&
+          attributes[:last_name].blank? && attributes["last_name"].blank? &&
+          attributes[:lastName].blank? && attributes["lastName"].blank? &&
+          attributes[:gender].blank? && attributes["gender"].blank? &&
+          attributes[:birth_date].blank? && attributes["birth_date"].blank? &&
+          attributes[:birthDate].blank? && attributes["birthDate"].blank?
+        )
+          errors.add(:attributes, :blank, message: "должен содержать хотя бы одно поле для обновления")
         end
       end
     end

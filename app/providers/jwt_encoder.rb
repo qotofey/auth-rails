@@ -18,9 +18,8 @@ class JwtEncoder
   end
 
   def secret
-    Rails.application.credentials.secret_key_base
+    ENV.fetch("JWT_SECRET_KEY", Rails.application.credentials.secret_key_base)
   end
-
 
   def build_header
     {
@@ -42,6 +41,10 @@ class JwtEncoder
   end
 
   def expires_at
-    issued_at + 15.minutes.to_i
+    issued_at + access_token_expiration.minutes.to_i
+  end
+
+  def access_token_expiration
+    ENV.fetch("JWT_ACCESS_TOKEN_EXPIRATION", 15).to_i
   end
 end

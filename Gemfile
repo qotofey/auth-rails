@@ -38,6 +38,8 @@ gem "image_processing", "~> 1.2"
 gem "jsonapi-serializer", "~> 2.2"
 gem "jsonapi_parameters", "~> 2.3"
 gem "jwt", "~> 3.1"
+gem "dotenv-rails", "~> 3.1"
+gem "paranoia", "~> 3.0"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -51,4 +53,11 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  # RSpec for testing
+  gem "rspec-rails", "~> 7.0"
+  gem "testcontainers", "~> 0.2"
+  gem "database_cleaner-active_record", "~> 2.1"
 end
+
+gem "jwt_sessions", "~> 1.0"

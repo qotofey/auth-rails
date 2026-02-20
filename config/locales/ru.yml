@@ -5,3 +5,90 @@ ru:
         genders:
           female: "жен."
           male: "муж."
+    errors:
+      messages:
+        taken: "уже существует"
+        required_attribute_missing: "Обязательный атрибут отсутствует"
+        blank: "%{attribute} не может быть пустым"
+        too_short: "%{attribute} недостаточной длины (не может быть меньше %{count} символов)"
+        too_long: "%{attribute} слишком большой длины (не может быть больше чем %{count} символов)"
+        invalid_format: "Неверный формат"
+        value_taken: "Значение уже существует"
+        invalid_type: "Неверный тип ресурса"
+        invalid_credentials: "Неверный логин или пароль"
+        not_found: "Такой ресурс не существует"
+        method_not_allowed: "Метод не поддерживается для этого пути"
+        unauthenticated: "Требуется войти в систему"
+        unauthorized: "Доступ к ресурсу запрещён"
+        gone: "Этот ресурс был удалён"
+        server_error: "Ошибка на стороне сервера. Не беспокойтесь, наш разработчик скоро получит за это ремня"
+        invalid_request: "Неверный формат запроса"
+        invalid_refresh_token: "Неверный или истекший токен обновления"
+        user_not_found: "Пользователь не найден"
+        validation_error: "Ошибка валидации"
+        too_long: "Превышена максимальная длина"
+        too_short: "Недостаточная длина"
+        inclusion: "Недопустимое значение"
+      models:
+        user_credential:
+          attributes:
+            login:
+              taken: "Логин уже существует"
+  activemodel:
+    errors:
+      messages:
+        data_blank: "Обязательный атрибут data отсутствует"
+        required_attribute_missing: "Обязательный атрибут отсутствует"
+        blank: "%{attribute} не может быть пустым"
+        too_short: "%{attribute} недостаточной длины (не может быть меньше %{count} символов)"
+        too_long: "%{attribute} слишком большой длины (не может быть больше чем %{count} символов)"
+        invalid_format: "Неверный формат"
+        value_taken: "Значение уже существует"
+        invalid_type: "Неверный тип ресурса"
+        invalid_credentials: "Неверный логин или пароль"
+        not_found: "Такой ресурс не существует"
+        method_not_allowed: "Метод не поддерживается для этого пути"
+        unauthenticated: "Требуется войти в систему"
+        unauthorized: "Доступ к ресурсу запрещён"
+        gone: "Этот ресурс был удалён"
+        server_error: "Ошибка на стороне сервера. Не беспокойтесь, наш разработчик скоро получит за это ремня"
+        invalid_request: "Неверный формат запроса"
+        invalid_refresh_token: "Неверный или истекший токен обновления"
+        user_not_found: "Пользователь не найден"
+        validation_error: "Ошибка валидации"
+        too_long: "Превышена максимальная длина"
+        too_short: "Недостаточная длина"
+        inclusion: "Недопустимое значение"
+      models:
+        user:
+          attributes:
+            username:
+              required_attribute_missing: "Логин не может быть пустым"
+              too_short: "Логин недостаточной длины"
+              too_long: "Логин слишком большой длины"
+              invalid_format: "Логин может содержать только цифры и буквы английского языка"
+              value_taken: "Логин уже зарезервирован"
+            password:
+              required_attribute_missing: "Пароль не может быть пустым"
+              too_short: "Пароль недостаточной длины"
+              too_long: "Пароль слишком большой длины"
+            data:
+              blank: "Обязательный атрибут data отсутствует"
+              required_attribute_missing: "Обязательный атрибут отсутствует"
+              invalid_format: "должен быть объектом"
+            attributes:
+              required_attribute_missing: "Обязательный атрибут отсутствует"
+              invalid_format: "должен быть объектом"
+            type:
+              required_attribute_missing: "Обязательный атрибут отсутствует"
+              invalid_format: "Неверный тип ресурса"
+            name:
+              invalid_format: "может содержать только буквы и дефис"
+            middle_name:
+              invalid_format: "может содержать только буквы и дефис"
+            last_name:
+              invalid_format: "может содержать только буквы и дефис"
+            gender:
+              inclusion: "может быть только male или female"
+            birth_date:
+              invalid_format: "должна быть в формате YYYY-MM-DD"
